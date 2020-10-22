@@ -2,7 +2,7 @@ import random
 import datetime
 import pandas as pd
 
-# Had done some extra preprocessing, but saved to .csv and removed from here
+# Had done some extra preprocessing, but saved to .csv file and removed from here
 
 df = pd.read_csv("Data/hurricane_data.csv", index_col=0)
 df.drop(df.columns[[11, 22]], axis=1, inplace=True)
