@@ -1,10 +1,14 @@
-import random
 import datetime
+import random
+
 import pandas as pd
 
 # Had done some extra preprocessing, but saved to .csv file and removed from here
 
 df = pd.read_csv("Data/hurricane_data.csv", index_col=0)
+
+# Replacing categorical features with dummy variables
+
 df.drop(df.columns[[11, 22]], axis=1, inplace=True)
 df.drop('Name', axis=1, inplace=True)
 dummies = pd.get_dummies(df['Status'])
@@ -13,16 +17,18 @@ df2 = df[dummies.columns]
 df2 = df2.drop(df2.index[0])
 df[dummies.columns] = dummies
 
-df['Date'] = df['Date'].apply(lambda x: datetime.datetime.fromisoformat(x))
-df['Year'] = df['Date'].apply(lambda x: x.year)
-df['Month'] = df['Date'].apply(lambda x: x.month)
-df.drop('Date', inplace=True, axis=1)
-
 dummies = pd.get_dummies(df['Event'])
 df = df.join(dummies.drop([0])).drop('Event', axis=1)
 df2 = df[dummies.columns]
 df2 = df2.drop(df2.index[0])
 df[dummies.columns] = dummies
+
+# Extracting features from date column for use with regression
+
+df['Date'] = df['Date'].apply(lambda x: datetime.datetime.fromisoformat(x))
+df['Year'] = df['Date'].apply(lambda x: x.year)
+df['Month'] = df['Date'].apply(lambda x: x.month)
+df.drop('Date', inplace=True, axis=1)
 
 y = df[['ID', 'Latitude', 'Longitude']].groupby('ID')
 x = df.groupby('ID')
