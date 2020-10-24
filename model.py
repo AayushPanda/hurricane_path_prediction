@@ -1,9 +1,7 @@
 import random
 
 import matplotlib.pyplot as plt
-
 import pandas as pd
-
 import tensorflow as tf
 from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.initializers import RandomUniform
@@ -15,6 +13,7 @@ from preprocessing import x_train, y_train, x_test, y_test
 # Setting up callbacks
 
 losses = []
+
 
 class StopAtLossValue(tf.keras.callbacks.Callback):
     def __init__(self, threshold):
