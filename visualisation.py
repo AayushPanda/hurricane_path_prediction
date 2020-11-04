@@ -1,8 +1,9 @@
 import pandas as pd
 import plotly.express as px
+import model
 
-yhat = pd.read_csv('yhat.csv')
-preds = pd.read_csv('preds.csv')
+yhat = model.yhat
+preds = model.preds
 
 yhat.drop([yhat.columns[0], 'ID'], axis=1, inplace=True)
 
