@@ -49,11 +49,6 @@ for group in x_train.groups.keys():
     y_traindf = y_train.get_group(group).drop('ID', axis=1)
     model.fit(x_traindf, y_traindf, batch_size=105, epochs=64, callbacks=[early_stop, stopAtLossValue])
 
-for group in x_test.groups.keys():
-    x_testdf = x_test.get_group(group).drop('ID', axis=1)
-    y_testdf = y_test.get_group(group).drop('ID', axis=1)
-    model.fit(x_testdf, y_testdf, batch_size=105, epochs=64, callbacks=[early_stop, stopAtLossValue])
-
 # Randomly selecting hurricane to test model
 
 test_hurricane = list(x_train.groups)[random.randint(0, len(list(x_train.groups)))]
